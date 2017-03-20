@@ -1,0 +1,829 @@
+
+/*============================================
+ * Style
+ * Project:  Work Sample
+ *
+ *--INDEX--
+ *
+ *--#Normalize--
+ *
+ *--#Variables--
+ *  #Colors
+ *  #Default Font
+ *  #Sizes
+ *
+ *--#Mixins--
+ *
+ *--#Base Styles
+ *
+ *--#Layout--
+ *
+ *--#Main Navigation--
+ *
+ *--#Search--
+ *
+ *--#Header--
+ *
+ *--#Main content--
+ *
+ *--#Secondary--
+ *
+ *--#Partners--
+ *
+ *--#Footer--
+ *
+ *--#Toggle grid--
+ *
+ * ==========================================*/
+
+
+
+@import normalize
+
+
+// ==========================================================================
+// VARIABLES
+// ==========================================================================
+
+// -------- COLORS --------
+
+$white: rgb(255,255,255)
+$light-gray: rgb(97,97,97)
+$gray: rgb(102,102,102)
+$black: rgb(0,0,0)
+
+
+$btn-color: rgb(240,19,143)
+$btn-color-hover: rgb(202,13,119)
+$btn-color-active: rgb(164,9,96)
+
+$primary-font-color: $white
+
+// -------- DEFAULT FONT --------
+
+$sans-serif: Arial, sans-serif
+
+// -------- SIZES --------
+
+$screen-width-smallest: 320px
+$screen-width-small: 480px
+$screen-width-medium: 768px
+$screen-width-large: 1024px
+
+$page-width-smallest: 304px
+$page-width-small: 468px
+$page-width-medium: 714px
+$page-width-large: 960px
+
+$gutter: 24px
+
+
+// ==========================================================================
+// MIXINS
+// ==========================================================================
+
+@mixin border-radius($radius)
+    -webkit-border-radius: $radius
+    -moz-border-radius:    $radius
+    -ms-border-radius:     $radius
+    border-radius:         $radius
+
+@mixin breakpoint($point)
+
+    @if $point == smallest
+        @media (min-width: $screen-width-smallest)
+            @content
+
+    @if $point == small
+        @media (min-width: $screen-width-small)
+            @content
+
+    @if $point == medium
+        @media (min-width: $screen-width-medium)
+            @content
+
+    @if $point == large
+        @media (min-width: $screen-width-large)
+            @content
+
+
+@mixin transition($transition-property, $transition-time, $method)
+    -webkit-transition: $transition-property $transition-time $method
+    -moz-transition: $transition-property $transition-time $method
+    -ms-transition: $transition-property $transition-time $method
+    -o-transition: $transition-property $transition-time $method
+    transition: $transition-property $transition-time $method
+
+
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+
+body
+    color: $primary-font-color
+    font: normal 700 14px/18px $sans-serif
+
+
+h1
+    font: 700 24px/30px $sans-serif
+    margin: 0 0 10px 0
+
+h2
+    font: 700 24px/30px $sans-serif
+    margin: 0 0 10px 0
+
+h3
+    font: 700 22px/30px $sans-serif
+    margin: 0 0 10px 0
+
+h4
+    font: 700 18px/21px $sans-serif
+    margin: 0 0 10px 0
+
+p
+    font: 700 14px/18px $sans-serif
+    margin: 0 0 10px 0
+
+
+a
+    @include border-radius(3px)
+    @include transition(background-color, 0.2s, ease-in-out)
+    background: $btn-color
+    color: $white
+    display: block
+    padding: 9px 15px 8px
+    text-decoration: none
+
+    &:visited
+        background: $btn-color
+
+    &:hover
+        background: $btn-color-hover
+
+    &:active
+        background: $btn-color-active
+
+    &:focus
+        background: $btn-color-active
+
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+
+#page
+    margin: 0 auto
+    padding-bottom: 20px
+    width: $page-width-smallest
+
+    &.grid-on
+        background: url(../img/grid.jpg) repeat-y
+
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+    @include breakpoint(small)
+        width: $page-width-small
+
+    @include breakpoint(medium)
+        width: $page-width-medium
+
+    @include breakpoint(large)
+        width: $page-width-large
+
+.top-bar
+    padding: 11px 0 0 11px
+
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+    @include breakpoint(small)
+
+    @include breakpoint(medium)
+        padding-left: 0
+
+    @include breakpoint(large)
+
+
+
+/* ==========================================================================
+   MAIN NAVIGATION
+   ========================================================================== */
+
+#menu-toggle
+    color: transparent
+    display: inline-block
+    position: relative
+    width: 71px
+    padding-left: 0
+    padding-right: 0
+    float: left
+
+    &:before
+        background: url(../img/sprite.png) -295px 0 no-repeat
+        content: ''
+        height: 20px
+        left: 8px
+        position: absolute
+        top: 7px
+        width: 20px
+
+    &:after
+        background: url(../img/sprite.png) -27px 0 no-repeat
+        content: ''
+        height: 16px
+        position: absolute
+        right: 13px
+        width: 16px
+        top: 9px
+
+    @include breakpoint(small)
+        color: $white
+        padding-left: 39px
+        width: 89px
+
+        &:after
+            right: 8px
+
+    @include breakpoint(medium)
+        display: none
+
+    @include breakpoint(large)
+
+
+#menu-toggle.closed:after
+    background: url(../img/sprite.png) -182px 0 no-repeat
+
+.menu-container
+    height: 0px
+    overflow: hidden
+    width: 202px
+
+    .main-navigation
+        margin-top: 10px
+
+        ul
+            margin: 0
+            padding: 0
+            list-style: none
+
+        li
+            float: left
+            width: 100%
+            margin-bottom: 4px
+
+            &:last-child
+                margin-bottom: 0
+
+        a
+            position: relative
+            padding-left: 34px
+
+            &:before
+                background: url(../img/sprite.png) no-repeat
+                content: ''
+                height: 16px
+                left: 10px
+                position: absolute
+                top: 10px
+                width: 17px
+
+        .icon-home:before
+            background-position: -208px 0
+
+        .icon-about:before
+            background-position: 0 0
+
+        .icon-info:before
+            background-position: -235px 0
+
+        .icon-download:before
+            background-position: -103px 0
+
+        &:after
+            clear: both
+            content: ''
+            display: block
+
+    @include breakpoint(small)
+        width: 448px
+
+        .main-navigation
+
+            li
+                width: 222px
+                &:nth-child(odd)
+                    margin-right: 4px
+                &:nth-child(3)
+                    margin-bottom: 0
+
+    @include breakpoint(medium)
+        height: auto !important
+        width: auto
+
+        .main-navigation
+            margin-top: 0
+
+            li
+                width: auto
+                margin-right: 10px !important
+                margin-bottom: 0 !important
+
+            a
+                display: block
+
+            a.icon-home
+                height: 35px
+                padding: 0
+                width: 37px
+                color: transparent
+
+    @include breakpoint(large)
+
+        .main-navigation
+
+            a.icon-home
+                height: auto
+                padding: 9px 15px 8px 34px
+                width: 37px
+                color: $white
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+
+.search-box
+    float: right
+
+    .search-input
+        @include border-radius(3px)
+
+        border: 2px solid rgb(153, 153, 153)
+        color: rgb(147, 147, 147)
+        font-style: italic
+        margin-right: 4px
+        width: 132px
+        padding: 7px 9px
+
+    .search-submit
+        @include border-radius(3px)
+        @include transition(all, 0.2s, ease-in-out)
+
+        background: url(../img/sprite.png) -316px 8px no-repeat $btn-color
+        border: none
+        color: transparent
+        height: 35px
+        width: 36px
+
+        &:visited
+            background-color: $btn-color
+
+        &:hover
+            background-color: $btn-color-hover
+
+        &:active
+            background-color: $btn-color-active
+
+    @include breakpoint(small)
+        margin-right: 10px
+
+        .search-input
+            width: 228px
+
+    @include breakpoint(medium)
+        margin-right: 0px
+
+        .search-input
+            width: 167px
+
+    @include breakpoint(large)
+
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.page-header
+    background: url(../img/header_placeholder.jpg) center center no-repeat
+    height: 340px
+    padding: 0 20px
+    position: relative
+    margin-bottom: $gutter
+    margin-top: 14px
+
+    .header-link
+        @include border-radius(4px)
+        bottom: 24px
+        left: 0
+        right: 0
+        margin: 0 auto
+        padding: 25px 0 24px
+        position: absolute
+        width: 264px
+
+        h2
+            margin: 0
+            text-align: center
+
+
+    @include breakpoint(small)
+
+        .header-link
+            width: 408px
+
+    @include breakpoint(medium)
+        margin-top: 17px
+
+        .header-link
+            left: auto
+            right: 22px
+            width: 304px
+
+            h2
+                padding-left: 46px
+
+            h2:before
+                background: url(../img/sprite.png) -412px 0 no-repeat
+                content: ''
+                height: 37px
+                left: $gutter
+                position: absolute
+                top: 21px
+                width: 38px
+
+    @include breakpoint(large)
+
+
+
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+
+.main
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+.ie8 .main-content .main-box
+    margin-right: 12px !important
+
+.main-content
+    margin-bottom: 20px
+
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+    .main-box
+        @include border-radius(3px)
+
+        background: $black
+        margin-bottom: 10px
+        width: $page-width-smallest
+
+        .box-inner
+            padding: 11px 20px 20px
+
+            h2
+                margin-bottom: 12px
+
+            img
+                display: none
+
+            a
+                padding: 9px 15px 10px
+
+            h4
+                margin-bottom: 0
+                position: relative
+
+                &:after
+                    background: url(../img/sprite.png) -262px 0 no-repeat
+                    content: ''
+                    height: 24px
+                    right: -5px
+                    position: absolute
+                    top: -2px
+                    width: 23px
+
+    .main-box2
+        background: $gray
+
+    @include breakpoint(small)
+
+        margin-bottom: $gutter
+        padding-left: 1px
+
+        .main-box
+            float: left
+            margin-bottom: 0
+            margin-right: $gutter
+            width: 221px
+
+            &:last-child
+                margin-right: 0
+
+            .box-inner
+                img
+                    display: block
+                    height: 138px
+                    margin-bottom: 10px
+                    width: 180px
+
+                h2
+                    margin-bottom: 15px
+
+    @include breakpoint(medium)
+        padding: 0 41px
+
+        .main-box
+            width: 304px
+
+            .box-inner
+                img
+                    height: 201px
+                    margin-bottom: 14px
+                    width: 264px
+
+    @include breakpoint(large)
+        padding: 0
+        float: left
+        margin-bottom: 0
+
+
+
+
+
+
+/* ==========================================================================
+   SECONDARY
+   ========================================================================== */
+
+.secondary
+    padding: 0
+
+    .side-link
+        margin-bottom: 10px
+        padding: 18px 18px 22px
+        position: relative
+
+        p, h3, h4
+            margin: 0
+
+        &:after
+            background: url(../img/sprite.png) no-repeat
+            content: ''
+            display: none
+            position: absolute
+
+        &:last-child
+            margin-bottom: 0
+
+    .icon-news:after
+        background-position: -353px 0
+        display: block
+        height: 48px
+        right: 25px
+        top: 23px
+        width: 28px
+
+    .icon-contact:after
+        background-position: -53px 0
+        display: block
+        height: 40px
+        right: 19px
+        top: 25px
+        width: 40px
+
+    .icon-download-large:after
+        background-position: -130px 0
+        display: block
+        height: 38px
+        right: 20px
+        top: 29px
+        width: 42px
+
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+    @include breakpoint(small)
+        padding: 0 20px
+
+    @include breakpoint(medium)
+        padding: 0 41px
+
+        .side-link
+            width: 268px
+            float: left
+            margin-right: $gutter
+
+            &:nth-child(even)
+                margin-right: 0
+
+    @include breakpoint(large)
+        width: 304px
+        float: right
+        padding: 0
+
+        .side-link
+            margin-bottom: 16px
+
+.ie8 .secondary .side-link
+    margin-right: 12px !important
+
+/* ==========================================================================
+   PARTNERS
+   ========================================================================== */
+
+.ie8 .partner-container .partner-inner .partner-logo
+    margin-right: 10px !important
+
+.partner-container
+    @include border-radius(3px)
+    background: $gray
+    margin: 20px auto 20px
+    width: 262px
+
+    .partner-inner
+        padding: 20px 28px
+
+        &:after
+            clear: both
+            content: ''
+            display: block
+
+        .partner-logo
+            margin-bottom: 10px
+
+            &:last-child
+                margin-bottom: 0px
+
+    @include breakpoint(small)
+        width: auto
+        margin-bottom: 12px
+        margin-top: 23px
+
+        .partner-inner
+            padding: 20px 17px 0
+
+            .partner-logo
+                float: left
+                margin-bottom: 20px
+                margin-right: 21px
+
+                &:nth-child(even)
+                    margin-right: 0
+
+    @include breakpoint(medium)
+        .partner-inner
+            padding: 15px 26px 14px
+
+            .partner-logo
+                margin-right: 16px
+                margin-bottom: 0
+
+                &:nth-child(even)
+                    margin-right: 16px
+
+                &:last-child
+                    margin-right: 0
+
+                img
+                    height: 77px
+                    width: 153px
+
+    @include breakpoint(large)
+
+        .partner-inner
+            padding: 20px 40px 19px
+
+            .partner-logo
+                margin-right: 20px
+
+                img
+                    height: 103px
+                    width: 206px
+
+
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.page-footer
+    background: $black
+    padding: 0px 20px 20px
+
+    .footer-navigation
+        padding-top: 18px
+
+        ul
+            margin: 0 0 20px 0
+            padding: 0
+            list-style: none
+
+            &:after
+                clear: both
+                content: ''
+                display: block
+
+        li
+            margin-bottom: 8px
+
+        a
+            @include transition(color, 0.2s, ease-in-out)
+            background: none
+            font-size: 18px
+            padding: 0
+
+            &:visited
+                color: $white
+
+            &:hover
+                color: $btn-color-hover
+
+            &:active
+                color: $btn-color-active
+
+            &:focus
+                color: $btn-color-active
+
+    #to-top
+        text-align: center
+        position: relative
+
+    &:after
+        clear: both
+        content: ''
+        display: block
+
+    @include breakpoint(small)
+
+        padding: 0 30px $gutter
+
+        .footer-navigation
+            ul
+                margin-bottom: 18px
+                li
+                    float: left
+                    margin: 0 15px
+
+    @include breakpoint(medium)
+
+        margin-top: $gutter
+        padding: 0 58px 34px 30px
+
+
+        .footer-navigation
+            float: left
+            padding-top: 36px
+
+            ul
+                margin-bottom: 0
+
+                li
+                    margin-right: 33px
+
+        #to-top
+            float: right
+            padding-left: 32px
+            padding-right: 21px
+            margin-top: 29px
+
+            &:before
+                background: url(../img/sprite.png) -391px 0 no-repeat
+                content: ''
+                height: 12px
+                left: 11px
+                position: absolute
+                top: 11px
+                width: 12px
+
+    @include breakpoint(large)
+
+
+/* ==========================================================================
+   TOGGLE GRID
+   ========================================================================== */
+
+#toggle-grid
+    @include transition(color, 0.2s, ease-in-out)
+
+    color: $black
+    background: transparent
+    float: right
+
+    &:hover
+        color: $btn-color-hover
+
+
+
